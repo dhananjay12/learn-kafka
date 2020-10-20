@@ -1,0 +1,31 @@
+package com.djcodes.spring.kafka.eventsproducer.domain;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+public class Employee {
+
+    @JsonIgnore
+    private Integer id;
+
+    @NotBlank(message = "Name can not be null!")
+    private String name;
+
+    @NotBlank(message = "Title can not be null!")
+    private String title;
+
+    @Email(message = "Invalid Email")
+    private String email;
+
+}
