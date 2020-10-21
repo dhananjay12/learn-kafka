@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-
 public class EmployeeEvent {
 
     private Integer employeeEventId;

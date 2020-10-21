@@ -4,6 +4,7 @@ package com.djcodes.spring.kafka.eventsproducer.controller;
 import com.djcodes.spring.kafka.eventsproducer.domain.Employee;
 import com.djcodes.spring.kafka.eventsproducer.exceptions.EntityNotFoundException;
 import com.djcodes.spring.kafka.eventsproducer.service.EmployeeService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee create(@Valid @RequestBody Employee employee) throws IllegalAccessException{
+    public Employee create(@Valid @RequestBody Employee employee) throws IllegalAccessException, JsonProcessingException {
 
         return employeeService.saveEmployee(employee);
     }

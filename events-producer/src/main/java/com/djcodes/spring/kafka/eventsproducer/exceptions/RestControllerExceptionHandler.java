@@ -1,5 +1,6 @@
 package com.djcodes.spring.kafka.eventsproducer.exceptions;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,15 @@ public class RestControllerExceptionHandler {
     @ExceptionHandler(value = ValidationException.class)
     public ResponseEntity<?> handleException(ValidationException exception) {
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMsg());
     }
+
+     @ResponseBody
+    @ExceptionHandler(value = JsonProcessingException.class)
+    public ResponseEntity<?> handleException(JsonProcessingException exception) {
+
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(exception.getMessage());
+    }
+
 
 }

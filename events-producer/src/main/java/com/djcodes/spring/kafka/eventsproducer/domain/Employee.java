@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Employee {
 
-    @JsonIgnore
     private Integer id;
 
     @NotBlank(message = "Name can not be null!")
@@ -25,6 +24,7 @@ public class Employee {
     @NotBlank(message = "Title can not be null!")
     private String title;
 
+    @NotBlank(message = "Email can not be null!")
     @Email(message = "Invalid Email")
     private String email;
 
