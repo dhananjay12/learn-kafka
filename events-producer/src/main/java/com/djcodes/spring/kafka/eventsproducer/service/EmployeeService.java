@@ -15,11 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeService {
 
-    @Autowired
-    EmployeeEventProducer employeeEventProducer;
-
     //Mimicking DB ...Not Fully Thread safe
     private static final AtomicInteger count = new AtomicInteger(0);
+    @Autowired
+    EmployeeEventProducer employeeEventProducer;
     private Map<Integer, Employee> employeeMap = new ConcurrentHashMap<>();
 
     public Employee findEmployeeById(int id) throws EntityNotFoundException {
@@ -37,20 +36,28 @@ public class EmployeeService {
         employee.setId(id);
         employeeMap.put(id, employee);
 
-        employeeEventProducer.sendEventDefault(EmployeeEvent.builder().employee(employee).employeeEventId(id).employeeEventType(EmployeeEventType.NEW).build());
+        employeeEventProducer.sendEventDefault(
+            EmployeeEvent.builder().employee(employee).employeeEventId(id).employeeEventType(EmployeeEventType.NEW)
+                .build());
 
         return employee;
 
     }
 
-    public void updateEmployee(int id, Employee employee) throws EntityNotFoundException {
+    public void updateEmployee(int id, Employee employee) throws EntityNotFoundException, JsonProcessingException {
         checkEmployee(id);
         employeeMap.put(id, employee);
+        employeeEventProducer.sendEventSynchronous(
+            EmployeeEvent.builder().employee(employee).employeeEventId(id).employeeEventType(EmployeeEventType.UPDATE)
+                .build());
     }
 
-    public void deleteEmployee(int id) throws EntityNotFoundException {
-        checkEmployee(id);
+    public void deleteEmployee(int id) throws EntityNotFoundException, JsonProcessingException {
+        Employee employee = checkEmployee(id);
         employeeMap.remove(id);
+        employeeEventProducer.sendEvent(
+            EmployeeEvent.builder().employee(employee).employeeEventId(id).employeeEventType(EmployeeEventType.DELETE)
+                .build());
     }
 
     private Employee checkEmployee(int id) throws EntityNotFoundException {

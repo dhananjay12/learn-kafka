@@ -39,13 +39,14 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @Valid @RequestBody Employee employee) throws EntityNotFoundException {
+    public void update(@PathVariable int id, @Valid @RequestBody Employee employee)
+        throws EntityNotFoundException, JsonProcessingException {
 
         employeeService.updateEmployee(id, employee);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) throws EntityNotFoundException {
+    public void delete(@PathVariable int id) throws EntityNotFoundException, JsonProcessingException {
 
         employeeService.deleteEmployee(id);
     }
