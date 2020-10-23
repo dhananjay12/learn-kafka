@@ -1,10 +1,8 @@
 package com.djcodes.spring.kafka.eventsproducer.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -18,6 +18,7 @@ public class RestControllerExceptionHandler {
 
         String errorMessage = exception.getBindingResult().getFieldErrors().stream()
             .map(fieldError -> fieldError.getField() + " - " + fieldError.getDefaultMessage())
+            .sorted()
             .collect(Collectors.joining(", "));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }

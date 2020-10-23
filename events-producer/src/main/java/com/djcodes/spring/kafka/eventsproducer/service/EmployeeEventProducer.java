@@ -26,7 +26,7 @@ public class EmployeeEventProducer {
     @Autowired
     ObjectMapper objectMapper;
 
-    public void sendEventDefault(EmployeeEvent employeeEvent) throws JsonProcessingException {
+    public ListenableFuture<SendResult<Integer, String>> sendEventDefault(EmployeeEvent employeeEvent) throws JsonProcessingException {
 
         Integer key = employeeEvent.getEmployeeEventId();
         String value = objectMapper.writeValueAsString(employeeEvent);
@@ -47,6 +47,8 @@ public class EmployeeEventProducer {
             }
         });
 
+        return listenableFuture;
+
     }
 
     public SendResult<Integer, String> sendEventSynchronous(EmployeeEvent employeeEvent)
@@ -64,7 +66,7 @@ public class EmployeeEventProducer {
 
     }
 
-    public void sendEvent(EmployeeEvent employeeEvent) throws JsonProcessingException {
+    public ListenableFuture<SendResult<Integer, String>> sendEvent(EmployeeEvent employeeEvent) throws JsonProcessingException {
 
         Integer key = employeeEvent.getEmployeeEventId();
         String value = objectMapper.writeValueAsString(employeeEvent);
@@ -90,6 +92,8 @@ public class EmployeeEventProducer {
                     result.getRecordMetadata().partition());
             }
         });
+
+        return listenableFuture;
 
     }
 
