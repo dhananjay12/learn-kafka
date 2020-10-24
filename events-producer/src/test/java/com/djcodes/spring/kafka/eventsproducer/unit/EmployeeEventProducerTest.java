@@ -33,9 +33,6 @@ public class EmployeeEventProducerTest {
     @Mock
     KafkaTemplate<Integer, String> kafkaTemplate;
 
-    @Spy
-    ObjectMapper objectMapper = new ObjectMapper();
-
     @InjectMocks
     EmployeeEventProducer employeeEventProducer;
 
@@ -83,7 +80,6 @@ public class EmployeeEventProducerTest {
         //Assert
         SendResult<Integer, String> result = listenableFuture.get();
         assertEquals(0, result.getRecordMetadata().partition());
-
 
     }
 
