@@ -28,10 +28,15 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.SettableListenableFuture;
 
 @ExtendWith(MockitoExtension.class)
+//@MockitoSettings(strictness = Strictness.LENIENT)
 public class EmployeeEventProducerTest {
 
     @Mock
     KafkaTemplate<Integer, String> kafkaTemplate;
+
+    // Required as you are autowiring this in producer
+    @Spy
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @InjectMocks
     EmployeeEventProducer employeeEventProducer;
