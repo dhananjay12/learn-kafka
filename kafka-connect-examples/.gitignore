@@ -1,0 +1,9 @@
+# Skip kafka offsets
+#ignore all kind of files
+/**/*.*
+#except for these files
+!/**/*.yml
+!/**/*.properties
+!/**/*.txt
+!/**/*.md
+!/**/*.git*
